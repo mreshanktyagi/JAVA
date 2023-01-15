@@ -19,7 +19,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("ProgressBar");
         ProgressBar bar = new ProgressBar();
         Task task = createTask();
@@ -28,7 +27,7 @@ public class Main extends Application {
         root.getChildren().add(bar);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        Thread thread =         new Thread(task);
+        Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
         primaryStage.show();
@@ -40,7 +39,9 @@ public class Main extends Application {
         return new Task<Void>(){
             @Override protected Void call() throws Exception {
                 for(int iterations = 0; iterations < 100; iterations++){
-                    if(isCancelled()) break;
+                    if(isCancelled()){
+                        break;
+                    }
                     TimeUnit.SECONDS.sleep(10);
                     updateProgress(iterations,100);
                 }
